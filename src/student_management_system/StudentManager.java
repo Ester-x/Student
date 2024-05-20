@@ -35,7 +35,7 @@ class StudentManager {
     }
 
     public void addStudent(Student student) {
-        // Check if a student with the same ID already exists
+        // Check if a student with the same id already exists
         boolean studentExists = students.stream().anyMatch(s -> s.getId().equals(student.getId()));
 
         if (studentExists) {
@@ -45,13 +45,13 @@ class StudentManager {
             System.out.println("Student added successfully.");
         }
     }
-
+    //Displaying students details
     public void displayStudents() {
         for (Student student : students) {
             student.displayDetails();
         }
     }
-
+    //Method to update Absences
     public void updateAbsences(String studentId, String course, int count) {
         Student student = findStudentById(studentId);
         if (student != null) {
@@ -65,7 +65,7 @@ class StudentManager {
             System.err.println("Error: Student with ID " + studentId + " not found.");
         }
     }
-
+    //Method to update grades
     public void updateGrades(String studentId, String course, double grade) {
         Student student = findStudentById(studentId);
         if (student != null) {
@@ -79,30 +79,32 @@ class StudentManager {
             System.err.println("Error: Student with ID " + studentId + " not found.");
         }
     }
-
+    //Method to find a student object by their id
     private Student findStudentById(String studentId) {
         for (Student student : students) {
             if (student.getId().equals(studentId)) {
                 return student;
             }
         }
-        return null; // Return null if student not found
+        return null; 
     }
-
+  //Method to display stuents average grades
     public void displayAverageGrades() {
         for (Student student : students) {
             double averageGrade = student.calculateAverageGrade();
             System.out.println("Student ID: " + student.getId() + ", Average Grade: " + averageGrade);
         }
     }
-
+    
+    //Method to display total absences of all students
     public void displayTotalAbsences() {
         for (Student student : students) {
             int totalAbsences = student.calculateTotalAbsences();
             System.out.println("Student ID: " + student.getId() + ", Total Absences: " + totalAbsences);
         }
     }
-
+    
+    //Method to display course grades and absences
     public void displayCourseGradesAndAbsences() {
         for (String course : Student.COURSES) {
             double courseAverageGrade = students.stream()
@@ -118,6 +120,30 @@ class StudentManager {
 
             System.out.println("Course: " + course + ", Average Grade: " + courseAverageGrade +
                     ", Total Absences: " + totalCourseAbsences);
+        }
+    }
+    //This method searches students based on grade range
+    public void searchStudentsByGradeRange(double minGrade, double maxGrade) {
+        List<Student> filteredStudents = new ArrayList<>();
+        for (Student student : students) {
+            double averageGrade = student.calculateAverageGrade();
+            if (averageGrade >= minGrade && averageGrade <= maxGrade) {
+                filteredStudents.add(student);
+            }
+        }
+        System.out.println("Students with average grades between " + minGrade + " and " + maxGrade + ":");
+        for (Student student : filteredStudents) {
+            student.displayDetails();
+        }
+    }
+
+    //This method ranks students by total absences
+    public void rankStudentsByAbsences() {
+        List<Student> sortedStudents = new ArrayList<>(students);
+        sortedStudents.sort(Comparator.comparingInt(Student::calculateTotalAbsences));
+        System.out.println("Students ranked by total absences:");
+        for (Student student : sortedStudents) {
+            System.out.println("Student ID: " + student.getId() + ", Total Absences: " + student.calculateTotalAbsences());
         }
     }
 }

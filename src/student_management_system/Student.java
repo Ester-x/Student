@@ -2,10 +2,11 @@ package student_management_system;
 
 import java.util.*;
 
+//Implementing comparable interface for sorting purposes
 class Student implements Comparable<Student> {
     private String name;
     private String id;
-    public static final List<String> COURSES = Arrays.asList("OOP", "SAD", "DLD", "NME", "DM");
+    public static final List<String> COURSES = Arrays.asList("AAP", "CA", "DS", "DB", "WEB");
     private Map<String, Integer> absences;
     private Map<String, Double> grades;
 
@@ -28,7 +29,7 @@ class Student implements Comparable<Student> {
     public String getId() {
         return id;
     }
-
+    //Initializing 
     public Student(String name, String id) {
         this.name = name;
         this.id = id;
@@ -36,7 +37,7 @@ class Student implements Comparable<Student> {
         grades = new HashMap<>();
         for (String course : COURSES) {
             absences.put(course + ".Abs", 0);
-            grades.put(course, 4.0); // Initialize all grades to 4 by default
+            grades.put(course, 4.0); 
         }
     }
 
@@ -49,16 +50,23 @@ class Student implements Comparable<Student> {
     }
 
     public double calculateAverageGrade() {
-        if (COURSES.isEmpty()) {
+        if (grades.isEmpty()) {
             return 0.0;
         }
 
-        double totalGrades = grades.values().stream().mapToDouble(Double::doubleValue).sum();
-        return totalGrades / COURSES.size();
+        double total = 0.0;
+        for (double grade : grades.values()) {
+            total += grade;
+        }
+        return total / grades.size();
     }
 
     public int calculateTotalAbsences() {
-        return absences.values().stream().mapToInt(Integer::intValue).sum();
+        int total = 0;
+        for (int count : absences.values()) {
+            total += count;
+        }
+        return total;
     }
 
     public void displayDetails() {
@@ -66,7 +74,7 @@ class Student implements Comparable<Student> {
                 ", Grades: " + grades + ", Absences: " + absences +
                 ", Average Grade: " + calculateAverageGrade() + ", Total Absences: " + calculateTotalAbsences());
     }
-
+    //Comparing one student to another based on their names
     @Override
     public int compareTo(Student other) {
         return this.name.compareTo(other.name);
