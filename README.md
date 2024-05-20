@@ -10,13 +10,21 @@ The system utilizes various data structures to ensure efficient data management 
 Features
 
 Add Student: Add a new student to the system with their details.
+
 Display Students: View all students currently enrolled.
+
 Update Absences: Update the absence count for a specific student in a particular course.
+
 Update Grades: Update the grade for a specific student in a particular course.
+
 Display Average Grades: Display the average grade for each student.
+
 Display Total Absences: Display the total absences for each student.
+
 Display Course Grades and Absences: Display average grades and total absences for each course.
+
 Search Students by Grade Range: Find students whose average grades fall within a specified range.
+
 Rank Students by Absences: Rank students based on their total absences.
 
 
